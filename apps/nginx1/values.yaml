@@ -1,5 +1,3 @@
-lues.yaml
-7.25 KiB
 defaultImagePullPolicy: IfNotPresent
 diagnosticMode: {}
 deployments:
