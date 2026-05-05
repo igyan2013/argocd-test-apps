@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apps
+  namespace: ${argocd_namespace}
+spec:
+  generators:
+  - git:
+      repoURL: ${repo_project}
+      revision: ${branch}
+      directories:
+      - path: apps/*
+      - path: apps/nginx3
+        exclude: true
+  template:
+    metadata:
+      name: '{{path.basename}}'
+      labels:
+        name: apps
+    spec:
+      project: ${argocd_project}
+      source:
+        repoURL: ${repo_project}
+        targetRevision: ${branch}
+        path: 'infra/universal'
+        helm:
+          valueFiles:
+          - /apps/{{path.basename}}/values.yaml
+          - /apps/values.yaml
+          - /main.yaml
+      destination:
+        name: in-cluster
+        namespace: ${app_namespace}
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+        - CreateNamespace=true
+        - ServerSideApply=true
+      ignoreDifferences:
+      - group: apps
+        kind: Deployment
+        namespace: ${app_namespace}
+        jqPathExpressions:
+        - .spec.template.spec.containers.[].env.[].valueFrom.resourceFieldRef.divisor
