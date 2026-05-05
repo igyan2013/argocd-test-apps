@@ -22,7 +22,7 @@ spec:
       source:
         repoURL: https://github.com/igyan2013/argocd-test-apps.git  #${repo_project}
         targetRevision:  main #${branch}
-        path: 'apps/*.yaml' #'infra/universal'
+        path: 'apps/{{path.basename}}' #'infra/universal'
         helm:
           valueFiles:
           - /apps/{{path.basename}}/values.yaml
