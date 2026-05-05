@@ -18,7 +18,7 @@ spec:
       labels:
         name: apps
     spec:
-      project: test-apps #${argocd_project}
+      project: default #${argocd_project}
       source:
         repoURL: https://github.com/igyan2013/argocd-test-apps.git  #${repo_project}
         targetRevision:  main #${branch}
