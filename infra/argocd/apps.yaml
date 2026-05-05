@@ -2,12 +2,12 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: test-apps
-  namespace: ${argocd_namespace}
+  namespace: argocd #${argocd_namespace}
 spec:
   generators:
   - git:
-      repoURL: ${repo_project}
-      revision: ${branch}
+      repoURL: https://github.com/igyan2013/argocd-test-apps.git #${repo_project}
+      revision: main #${branch}
       directories:
       - path: apps/*
       - path: apps/nginx3
@@ -18,11 +18,11 @@ spec:
       labels:
         name: apps
     spec:
-      project: ${argocd_project}
+      project: test-apps #${argocd_project}
       source:
-        repoURL: ${repo_project}
-        targetRevision: ${branch}
-        path: 'infra/universal'
+        repoURL: https://github.com/igyan2013/argocd-test-apps.git  #${repo_project}
+        targetRevision:  main #${branch}
+        #path: 'infra/universal'
         helm:
           valueFiles:
           - /apps/{{path.basename}}/values.yaml
@@ -30,7 +30,7 @@ spec:
           - /main.yaml
       destination:
         name: in-cluster
-        namespace: ${app_namespace}
+        namespace: test-app #${app_namespace}
       syncPolicy:
         automated:
           prune: true
@@ -41,6 +41,6 @@ spec:
       ignoreDifferences:
       - group: apps
         kind: Deployment
-        namespace: ${app_namespace}
+        namespace: test-app #  ${app_namespace}
 #        jqPathExpressions:
 #        - .spec.template.spec.containers.[].env.[].valueFrom.resourceFieldRef.divisor
