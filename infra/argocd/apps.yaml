@@ -42,5 +42,5 @@ spec:
       - group: apps
         kind: Deployment
         namespace: ${app_namespace}
-        jqPathExpressions:
-        - .spec.template.spec.containers.[].env.[].valueFrom.resourceFieldRef.divisor
+#        jqPathExpressions:
+#        - .spec.template.spec.containers.[].env.[].valueFrom.resourceFieldRef.divisor
