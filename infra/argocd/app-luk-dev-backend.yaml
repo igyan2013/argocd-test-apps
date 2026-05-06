@@ -8,8 +8,16 @@ spec:
   source:
     repoURL: https://github.com/igyan2013/argocd-test-apps.git
     targetRevision: HEAD
-    path: luk-dev-backend
-  destination:
+    path: apps/backend
+    helm:
+      parameters:
+        - name: namespace
+          value: luk-dev
+      valueFiles:
+          - /apps/apps/backend/values-dev.yaml
+          - /apps/values.yaml
+          - /main.yaml    
+destination:
     server: https://kubernetes.default.svc
     namespace: argocd
   syncPolicy:
