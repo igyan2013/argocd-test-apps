@@ -10,19 +10,19 @@ spec:
     targetRevision: HEAD
     path: apps/backend
     helm:
-      parameters:
-        - name: namespace
-          value: luk-dev
+#      parameters:
+#        - name: namespace
+#          value: luk-dev
       valueFiles:
           - /apps/backend/values-dev.yaml
           - /apps/values.yaml
           - /main.yaml    
   destination: 
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: luk-dev
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+#    automated:
+#      prune: true
+#      selfHeal: true
     syncOptions:
       - CreateNamespace=true
