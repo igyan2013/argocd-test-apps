@@ -14,10 +14,10 @@ spec:
         - name: namespace
           value: luk-dev
       valueFiles:
-          - /apps/apps/backend/values-dev.yaml
+          - /apps/backend/values-dev.yaml
           - /apps/values.yaml
           - /main.yaml    
-destination:
+  destination: 
     server: https://kubernetes.default.svc
     namespace: argocd
   syncPolicy:
