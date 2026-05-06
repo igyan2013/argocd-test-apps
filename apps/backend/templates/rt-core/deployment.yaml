@@ -67,11 +67,11 @@ spec:
               value: '{{ .Values.rtlcore.values.RTL_DATA_BUS_PASSWORD }}'              
           resources:
             limits:
-              cpu: "2"
-              memory: 6Gi
+              cpu: "0.5"
+              memory: 1Gi
             requests:
-              cpu: "2"
-              memory: 6Gi
+              cpu: "0.5"
+              memory: 1Gi
           volumeMounts:
             - name: luk-auth-key-rsa-cm
               mountPath: /abc/app/goodt/task_org/key.rsa
